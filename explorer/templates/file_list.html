@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+
+    <h2>
+        Collections <a href="{% url 'fetch_people_list' %}"> <button type="button" class="btn btn-primary">Fetch</button></a>
+    </h2>
+    <ul class="list-group">
+        {% for csv_file in csv_files %}
+            <li class="list-group-item"><a href="{% url 'get_CSV_details' csv_file.id %}"> {{ csv_file.file }} </a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

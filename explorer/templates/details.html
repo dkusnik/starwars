@@ -1,0 +1,36 @@
+{%  extends "base.html" %}
+{% load urlparams %}
+{% block body %}
+
+Count by:    {% for column in filter_fields %}
+            <a href="{% url 'get_CSV_details' csv_id %}{% get_filter_url url_get_params column %}">
+        {%  if column in header %}
+            <button type="button" class="btn btn-secondary"> {{ column }}</button>
+        {%  else %}
+                <button type="button" class="btn btn-primary"> {{ column }} </button>
+        {% endif %}
+    </a>
+    {% endfor %}
+
+    <table class="table">
+  <thead>
+    <tr>
+        {% for column in header %}
+            <th scope="col">{{ column }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+    <tr scope="row">
+          {% for column in row %}
+              <td>{{ column }}</td>
+          {% endfor %}
+    </tr>
+        {% endfor %}
+  </tbody>
+    </table>
+    {%  if next_url %}
+        <a href="{% url 'get_CSV_details' csv_id %}?{{next_url}}"> Show next 10 results</a>
+    {% endif %}
+{% endblock %}
